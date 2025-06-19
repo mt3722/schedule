@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>念佛法會時間表</title>
+  <title>念佛法會時間表（控制面板預設隱藏）</title>
   <style>
     :root {
       --title-font-size: 24px;
@@ -36,7 +36,7 @@
       margin-bottom: 20px;
     }
 
-    /* 控制面板 */
+    /* 控制面板（預設 collapsed） */
     .controls {
       background: #111;
       border: 1px solid #f5e4b1;
@@ -48,14 +48,17 @@
       margin-bottom: 40px;
       overflow: hidden;
       transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
-      max-height: 1000px; /* 展開時足夠高 */
-    }
-    .controls.collapsed {
-      max-height: 0;
+      max-height: 0;       /* 隱藏高度 */
       padding-top: 0;
       padding-bottom: 0;
       margin-bottom: 0;
       border: none;
+    }
+    .controls.expanded {
+      max-height: 1000px;  /* 足夠展開的高度 */
+      padding: 20px;
+      margin-bottom: 40px;
+      border: 1px solid #f5e4b1;
     }
     .controls h4 {
       margin: 0 0 10px;
@@ -81,7 +84,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* 整體包裹，應用 scale */
+    /* 內容縮放容器 */
     #wrapper {
       transform-origin: top center;
       transform: scale(var(--scale));
@@ -126,21 +129,42 @@
 </head>
 <body>
 
-  <!-- 折疊按鈕（預設文字為「顯示」） -->
+  <!-- 折疊按鈕（預設顯示「顯示」） -->
   <button id="toggleBtn">顯示控制面板 ▼</button>
 
-  <!-- 參數控制面板（預設隱藏，collapsed） -->
-  <div class="controls collapsed" id="controls">
+  <!-- 參數控制面板（預設隱藏） -->
+  <div class="controls" id="controls">
     <h4>🛠️ 版面參數控制面板</h4>
-
     <div class="control-group">
       <label for="scaleSlider">整體縮放</label>
       <input id="scaleSlider" type="range" min="50" max="200" value="100"
              oninput="updateScale(this.value)">
       <div class="value"><span id="scaleValue"></span>%</div>
     </div>
-    <!-- 其餘控制項同前面範例 -->
-    <!-- … -->
+    <div class="control-group">
+      <label for="titleFontSlider">標題字體大小</label>
+      <input id="titleFontSlider" type="range" min="14" max="100" value="24"
+             oninput="updateTitleFontSize(this.value)">
+      <div class="value"><span id="titleFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="timeFontSlider">時間字體大小</label>
+      <input id="timeFontSlider" type="range" min="12" max="100" value="23"
+             oninput="updateTimeFontSize(this.value)">
+      <div class="value"><span id="timeFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="contentFontSlider">內容字體大小</label>
+      <input id="contentFontSlider" type="range" min="12" max="100" value="24"
+             oninput="updateContentFontSize(this.value)">
+      <div class="value"><span id="contentFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="timeColWidthSlider">時間欄寬度</label>
+      <input id="timeColWidthSlider" type="range" min="30" max="300" value="64"
+             oninput="updateTimeColWidth(this.value)">
+      <div class="value"><span id="timeColWidthValue"></span>px</div>
+    </div>
     <div class="control-group">
       <label for="tableWidthSlider">表格總寬度</label>
       <input id="tableWidthSlider" type="range" min="100" max="1200" value="300"
@@ -149,25 +173,82 @@
     </div>
   </div>
 
+  <!-- 可縮放內容區 -->
   <div id="wrapper">
-    <!-- 週四 & 週日 表格內容 同前面範例 -->
-    <!-- … -->
+    <!-- 週四 -->
+    <div class="table-container">
+      <h3>念佛共修法會(週四)</h3>
+      <table>
+        <tr><td class="time">09:00</td><td class="content">佛說阿彌陀經</td></tr>
+        <tr><td class="time">10:00</td><td class="content">休息</td></tr>
+        <tr><td class="time">10:15</td><td class="content">淨土講座</td></tr>
+        <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+        <tr><td class="time">13:00</td><td class="content">念佛</td></tr>
+        <tr><td class="time">14:20</td><td class="content">休息</td></tr>
+        <tr><td class="time">14:40</td><td class="content">念佛</td></tr>
+        <tr><td class="time">16:00</td><td class="content">圓滿賦歸</td></tr>
+      </table>
+    </div>
+    <!-- 週日 -->
+    <div class="table-container">
+      <h3>念佛超薦法會(週日)</h3>
+      <table>
+        <tr><td class="time">09:00</td><td class="content">念佛</td></tr>
+        <tr><td class="time">09:30</td><td class="content">佛說阿彌陀經</td></tr>
+        <tr><td class="time">11:00</td><td class="content">迴向</td></tr>
+        <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+      </table>
+    </div>
   </div>
 
   <script>
-    // 切換折疊
-    const toggleBtn = document.getElementById('toggleBtn');
-    const controls = document.getElementById('controls');
-    toggleBtn.onclick = () => {
-      controls.classList.toggle('collapsed');
-      toggleBtn.textContent = controls.classList.contains('collapsed')
-        ? '顯示控制面板 ▼'
-        : '隱藏控制面板 ▲';
+    const btn = document.getElementById('toggleBtn');
+    const ctrl = document.getElementById('controls');
+
+    btn.onclick = () => {
+      const isExpanded = ctrl.classList.toggle('expanded');
+      btn.textContent = isExpanded
+        ? '隱藏控制面板 ▲'
+        : '顯示控制面板 ▼';
     };
 
-    // 以下省略 updateVar 及各控制函式，同前面範例
+    function updateVar(variable, value) {
+      document.documentElement.style.setProperty(variable, value);
+    }
+    function updateScale(val) {
+      updateVar('--scale', val/100);
+      document.getElementById('scaleValue').innerText = val;
+    }
+    function updateTitleFontSize(val) {
+      updateVar('--title-font-size', val+'px');
+      document.getElementById('titleFontValue').innerText = val;
+    }
+    function updateTimeFontSize(val) {
+      updateVar('--time-font-size', val+'px');
+      document.getElementById('timeFontValue').innerText = val;
+    }
+    function updateContentFontSize(val) {
+      updateVar('--content-font-size', val+'px');
+      document.getElementById('contentFontValue').innerText = val;
+    }
+    function updateTimeColWidth(val) {
+      updateVar('--time-col-width', val+'px');
+      document.getElementById('timeColWidthValue').innerText = val;
+    }
+    function updateTableWidth(val) {
+      updateVar('--table-width', val+'px');
+      document.getElementById('tableWidthValue').innerText = val;
+    }
+
+    // 初始同步
+    window.onload = () => {
+      updateScale(document.getElementById('scaleSlider').value);
+      updateTitleFontSize(document.getElementById('titleFontSlider').value);
+      updateTimeFontSize(document.getElementById('timeFontSlider').value);
+      updateContentFontSize(document.getElementById('contentFontSlider').value);
+      updateTimeColWidth(document.getElementById('timeColWidthSlider').value);
+      updateTableWidth(document.getElementById('tableWidthSlider').value);
+    };
   </script>
 </body>
 </html>
-
-/* （可折疊控制面板，預設隱藏） */
