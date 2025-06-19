@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>念佛法會時間表（進階可調）</title>
+  <style>
+    :root {
+      --title-font-size: 24px;
+      --time-font-size: 23px;
+      --content-font-size: 24px;
+      --time-col-width: 64px;
+      --table-width: 300px;
+    }
+
+    body {
+      background-color: #000;
+      color: #f5e4b1;
+      font-family: '標楷體', serif;
+      margin: 0;
+      padding: 30px 20px;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .controls label {
+      display: inline-block;
+      margin: 0 15px 10px;
+      font-size: 0.9em;
+      vertical-align: middle;
+    }
+
+    .controls input[type=range] {
+      vertical-align: middle;
+      width: 140px;
+    }
+
+    .controls span {
+      display: inline-block;
+      width: 60px;
+      text-align: left;
+      margin-left: 5px;
+    }
+
+    .table-container {
+      width: var(--table-width);
+      margin: 0 auto 60px;
+      border: 1px solid #f5e4b1;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #f5e4b1;
+      font-size: var(--title-font-size);
+      background-color: #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid #f5e4b1;
+      padding: 10px;
+      vertical-align: middle;
+    }
+
+    td.time {
+      width: var(--time-col-width);
+      font-size: var(--time-font-size);
+    }
+
+    td.content {
+      font-size: var(--content-font-size);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls">
+    <label>標題字體  
+      <input id="titleFontSlider" type="range" min="14" max="100" value="24"
+             oninput="updateTitleFontSize(this.value)">
+      <span id="titleFontValue"></span>
+    </label>
+
+    <label>時間字體  
+      <input id="timeFontSlider" type="range" min="12" max="100" value="23"
+             oninput="updateTimeFontSize(this.value)">
+      <span id="timeFontValue"></span>
+    </label>
+
+    <label>內容字體  
+      <input id="contentFontSlider" type="range" min="12" max="100" value="24"
+             oninput="updateContentFontSize(this.value)">
+      <span id="contentFontValue"></span>
+    </label>
+
+    <br/>
+
+    <label>時間欄寬度  
+      <input id="timeColWidthSlider" type="range" min="30" max="300" value="64"
+             oninput="updateTimeColWidth(this.value)">
+      <span id="timeColWidthValue"></span>
+    </label>
+
+    <label>表格總寬度  
+      <input id="tableWidthSlider" type="range" min="100" max="1200" value="300"
+             oninput="updateTableWidth(this.value)">
+      <span id="tableWidthValue"></span>
+    </label>
+  </div>
+
+  <!-- 念佛共修法會（週四） -->
+  <div class="table-container">
+    <h3>念佛共修法會(週四)</h3>
+    <table>
+      <tr><td class="time">09:00</td><td class="content">佛說阿彌陀經</td></tr>
+      <tr><td class="time">10:00</td><td class="content">休息</td></tr>
+      <tr><td class="time">10:15</td><td class="content">淨土講座</td></tr>
+      <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+      <tr><td class="time">13:00</td><td class="content">念佛</td></tr>
+      <tr><td class="time">14:20</td><td class="content">休息</td></tr>
+      <tr><td class="time">14:40</td><td class="content">念佛</td></tr>
+      <tr><td class="time">16:00</td><td class="content">圓滿賦歸</td></tr>
+    </table>
+  </div>
+
+  <!-- 念佛超薦法會（週日） -->
+  <div class="table-container">
+    <h3>念佛超薦法會(週日)</h3>
+    <table>
+      <tr><td class="time">09:00</td><td class="content">念佛</td></tr>
+      <tr><td class="time">09:30</td><td class="content">佛說阿彌陀經</td></tr>
+      <tr><td class="time">11:00</td><td class="content">迴向</td></tr>
+      <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+    </table>
+  </div>
+
+  <script>
+    function updateVar(variable, value) {
+      document.documentElement.style.setProperty(variable, value);
+    }
+
+    function updateTitleFontSize(val) {
+      updateVar('--title-font-size', val + 'px');
+      document.getElementById('titleFontValue').innerText = val + 'px';
+    }
+    function updateTimeFontSize(val) {
+      updateVar('--time-font-size', val + 'px');
+      document.getElementById('timeFontValue').innerText = val + 'px';
+    }
+    function updateContentFontSize(val) {
+      updateVar('--content-font-size', val + 'px');
+      document.getElementById('contentFontValue').innerText = val + 'px';
+    }
+    function updateTimeColWidth(val) {
+      updateVar('--time-col-width', val + 'px');
+      document.getElementById('timeColWidthValue').innerText = val + 'px';
+    }
+    function updateTableWidth(val) {
+      updateVar('--table-width', val + 'px');
+      document.getElementById('tableWidthValue').innerText = val + 'px';
+    }
+
+    // 初始化顯示數值
+    window.onload = function() {
+      updateTitleFontSize(document.getElementById('titleFontSlider').value);
+      updateTimeFontSize(document.getElementById('timeFontSlider').value);
+      updateContentFontSize(document.getElementById('contentFontSlider').value);
+      updateTimeColWidth(document.getElementById('timeColWidthSlider').value);
+      updateTableWidth(document.getElementById('tableWidthSlider').value);
+    };
+  </script>
+</body>
+</html>
