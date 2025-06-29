@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>淨土宗竹山念佛會法會流程時間表</title>
   <style>
+    :root {
+      /* 畫面基礎字級 & 寬度 */
+      --title-font-size: 24px;
+      --time-font-size: 23px;
+      --content-font-size: 24px;
+      --time-col-width: 64px;
+      --table-width: 300px;
+      --scale: 1;
+
+      /* 新增：最上方標題與 Logo 調整 */
+      --main-title-font-size: 26px;
+      --sub-title-font-size: 20px;
+      --logo-height: 26px;
+      --logo-title-gap: 10px;
+    }
+
     body {
       background-color: #000;
       color: #f5e4b1;
@@ -15,8 +31,97 @@
       flex-direction: column;
       align-items: center;
     }
+
+    /* 標題與 Logo 區塊 */
+    .logo-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .logo-title img {
+      height: var(--logo-height);
+    }
+    .logo-title h1 {
+      font-size: var(--main-title-font-size);
+      margin: 0 0 0 var(--logo-title-gap);
+    }
+
+    /* 副標題 */
+    .sub-title {
+      font-size: var(--sub-title-font-size);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* 切換按鈕 */
+    #toggleBtn {
+      background: #222;
+      color: #f5e4b1;
+      border: 1px solid #f5e4b1;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    /* 控制面板 */
+    .controls {
+      background: #111;
+      border: 1px solid #f5e4b1;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 700px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 40px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border: none;
+    }
+    .controls.expanded {
+      max-height: 1000px;
+      padding: 20px;
+      margin-bottom: 40px;
+      border: 1px solid #f5e4b1;
+    }
+    .controls h4 {
+      margin: 0 0 10px;
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+    .control-group label {
+      flex: 1;
+      font-size: 0.95em;
+    }
+    .control-group input[type=range] {
+      flex: 2;
+      margin: 0 10px;
+    }
+    .control-group .value {
+      width: 60px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 內容縮放容器 */
+    #wrapper {
+      transform-origin: top center;
+      transform: scale(var(--scale));
+    }
+
+    /* 表格 */
     .table-container {
-      width: 300px;
+      width: var(--table-width);
       margin: 0 auto 60px;
       border: 1px solid #f5e4b1;
       border-radius: 6px;
@@ -31,7 +136,7 @@
       padding: 14px;
       text-align: center;
       border-bottom: 1px solid #f5e4b1;
-      font-size: 24px;
+      font-size: var(--title-font-size);
     }
     table {
       width: 100%;
@@ -43,44 +148,185 @@
       vertical-align: middle;
     }
     td.time {
-      width: 64px;
-      font-size: 23px;
+      width: var(--time-col-width);
+      font-size: var(--time-font-size);
     }
     td.content {
-      font-size: 24px;
+      font-size: var(--content-font-size);
     }
   </style>
 </head>
 <body>
-
-  <!-- 週四流程時間表 -->
-  <div class="table-container">
-    <h3>念佛共修法會 (週四)</h3>
-    <table>
-      <tr><td class="time">09:00</td><td class="content">佛說阿彌陀經</td></tr>
-      <tr><td class="time">10:00</td><td class="content">休息</td></tr>
-      <tr><td class="time">10:15</td><td class="content">淨土講座</td></tr>
-      <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
-      <tr><td class="time">13:00</td><td class="content">念佛</td></tr>
-      <tr><td class="time">14:20</td><td class="content">休息</td></tr>
-      <tr><td class="time">14:40</td><td class="content">念佛</td></tr>
-      <tr><td class="time">16:00</td><td class="content">圓滿賦歸</td></tr>
-    </table>
+  <!-- Logo + 主標題 -->
+  <div class="logo-title">
+    <img src="https://raw.githubusercontent.com/mt3722/TableMaker/main/121203.png" alt="Logo">
+    <h1>淨土宗竹山念佛會</h1>
   </div>
 
-  <!-- 週日流程時間表 -->
-  <div class="table-container">
-    <h3>念佛超薦法會 (週日)</h3>
-    <table>
-      <tr><td class="time">09:00</td><td class="content">念佛</td></tr>
-      <tr><td class="time">09:30</td><td class="content">佛說阿彌陀經</td></tr>
-      <tr><td class="time">10:00</td><td class="content">開示</td></tr>
-      <tr><td class="time">10:30</td><td class="content">念佛</td></tr>
-      <tr><td class="time">10:55</td><td class="content">迴向</td></tr>
-      <tr><td class="time">11:00</td><td class="content">圓滿</td></tr>
-      <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
-    </table>
+  <!-- 副標題 -->
+  <div class="sub-title">法會流程時間表</div>
+
+  <!-- 切換按鈕 -->
+  <button id="toggleBtn">顯示控制面板 ▼</button>
+
+  <!-- 參數控制面板 -->
+  <div class="controls" id="controls">
+    <h4>🛠️ 版面參數控制面板</h4>
+    <!-- 縮放 -->
+    <div class="control-group">
+      <label for="scaleSlider">整體縮放</label>
+      <input id="scaleSlider" type="range" min="50" max="200" value="100" oninput="updateScale(this.value)">
+      <div class="value"><span id="scaleValue"></span>%</div>
+    </div>
+    <!-- 主標題字體 -->
+    <div class="control-group">
+      <label for="mainTitleSlider">主標題字體大小</label>
+      <input id="mainTitleSlider" type="range" min="14" max="100" value="26" oninput="updateMainTitle(this.value)">
+      <div class="value"><span id="mainTitleValue"></span>px</div>
+    </div>
+    <!-- 副標題字體 -->
+    <div class="control-group">
+      <label for="subTitleSlider">副標題字體大小</label>
+      <input id="subTitleSlider" type="range" min="14" max="100" value="20" oninput="updateSubTitle(this.value)">
+      <div class="value"><span id="subTitleValue"></span>px</div>
+    </div>
+    <!-- Logo 高度 -->
+    <div class="control-group">
+      <label for="logoHeightSlider">Logo 高度</label>
+      <input id="logoHeightSlider" type="range" min="14" max="100" value="26" oninput="updateLogoHeight(this.value)">
+      <div class="value"><span id="logoHeightValue"></span>px</div>
+    </div>
+    <!-- Logo & 標題 間距 -->
+    <div class="control-group">
+      <label for="logoGapSlider">Logo 與標題間距</label>
+      <input id="logoGapSlider" type="range" min="0" max="50" value="10" oninput="updateLogoGap(this.value)">
+      <div class="value"><span id="logoGapValue"></span>px</div>
+    </div>
+    <!-- 其他既有控制項 -->
+    <div class="control-group">
+      <label for="titleFontSlider">表格標題字體大小</label>
+      <input id="titleFontSlider" type="range" min="14" max="100" value="24" oninput="updateTitleFontSize(this.value)">
+      <div class="value"><span id="titleFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="timeFontSlider">時間字體大小</label>
+      <input id="timeFontSlider" type="range" min="12" max="100" value="23" oninput="updateTimeFontSize(this.value)">
+      <div class="value"><span id="timeFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="contentFontSlider">內容字體大小</label>
+      <input id="contentFontSlider" type="range" min="12" max="100" value="24" oninput="updateContentFontSize(this.value)">
+      <div class="value"><span id="contentFontValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="timeColWidthSlider">時間欄寬度</label>
+      <input id="timeColWidthSlider" type="range" min="30" max="300" value="64" oninput="updateTimeColWidth(this.value)">
+      <div class="value"><span id="timeColWidthValue"></span>px</div>
+    </div>
+    <div class="control-group">
+      <label for="tableWidthSlider">表格總寬度</label>
+      <input id="tableWidthSlider" type="range" min="100" max="1200" value="300" oninput="updateTableWidth(this.value)">
+      <div class="value"><span id="tableWidthValue"></span>px</div>
+    </div>
   </div>
 
+  <!-- 內容區 -->
+  <div id="wrapper">
+    <!-- 週四 -->
+    <div class="table-container">
+      <h3>念佛共修法會(週四)</h3>
+      <table>
+        <tr><td class="time">09:00</td><td class="content">佛說阿彌陀經</td></tr>
+        <tr><td class="time">10:00</td><td class="content">休息</td></tr>
+        <tr><td class="time">10:15</td><td class="content">淨土講座</td></tr>
+        <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+        <tr><td class="time">13:00</td><td class="content">念佛</td></tr>
+        <tr><td class="time">14:20</td><td class="content">休息</td></tr>
+        <tr><td class="time">14:40</td><td class="content">念佛</td></tr>
+        <tr><td class="time">16:00</td><td class="content">圓滿賦歸</td></tr>
+      </table>
+    </div>
+    <!-- 週日 -->
+    <div class="table-container">
+      <h3>念佛超薦法會(週日)</h3>
+      <table>
+        <tr><td class="time">09:00</td><td class="content">念佛</td></tr>
+        <tr><td class="time">09:30</td><td class="content">佛說阿彌陀經</td></tr>
+        <tr><td class="time">10:00</td><td class="content">開示</td></tr>
+        <tr><td class="time">10:30</td><td class="content">念佛</td></tr>
+        <tr><td class="time">10:55</td><td class="content">迴向</td></tr>
+        <tr><td class="time">11:00</td><td class="content">圓滿</td></tr>
+        <tr><td class="time">11:30</td><td class="content">午齋</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('toggleBtn');
+    const ctrl = document.getElementById('controls');
+    btn.onclick = () => {
+      const isExpanded = ctrl.classList.toggle('expanded');
+      btn.textContent = isExpanded ? '隱藏控制面板 ▲' : '顯示控制面板 ▼';
+    };
+
+    function updateVar(variable, value) {
+      document.documentElement.style.setProperty(variable, value);
+    }
+
+    function updateScale(val) {
+      updateVar('--scale', val/100);
+      document.getElementById('scaleValue').innerText = val;
+    }
+    function updateMainTitle(val) {
+      updateVar('--main-title-font-size', val + 'px');
+      document.getElementById('mainTitleValue').innerText = val;
+    }
+    function updateSubTitle(val) {
+      updateVar('--sub-title-font-size', val + 'px');
+      document.getElementById('subTitleValue').innerText = val;
+    }
+    function updateLogoHeight(val) {
+      updateVar('--logo-height', val + 'px');
+      document.getElementById('logoHeightValue').innerText = val;
+    }
+    function updateLogoGap(val) {
+      updateVar('--logo-title-gap', val + 'px');
+      document.getElementById('logoGapValue').innerText = val;
+    }
+    function updateTitleFontSize(val) {
+      updateVar('--title-font-size', val + 'px');
+      document.getElementById('titleFontValue').innerText = val;
+    }
+    function updateTimeFontSize(val) {
+      updateVar('--time-font-size', val + 'px');
+      document.getElementById('timeFontValue').innerText = val;
+    }
+    function updateContentFontSize(val) {
+      updateVar('--content-font-size', val + 'px');
+      document.getElementById('contentFontValue').innerText = val;
+    }
+    function updateTimeColWidth(val) {
+      updateVar('--time-col-width', val + 'px');
+      document.getElementById('timeColWidthValue').innerText = val;
+    }
+    function updateTableWidth(val) {
+      updateVar('--table-width', val + 'px');
+      document.getElementById('tableWidthValue').innerText = val;
+    }
+
+    // 初始化
+    window.onload = () => {
+      updateScale(document.getElementById('scaleSlider').value);
+      updateMainTitle(document.getElementById('mainTitleSlider').value);
+      updateSubTitle(document.getElementById('subTitleSlider').value);
+      updateLogoHeight(document.getElementById('logoHeightSlider').value);
+      updateLogoGap(document.getElementById('logoGapSlider').value);
+      updateTitleFontSize(document.getElementById('titleFontSlider').value);
+      updateTimeFontSize(document.getElementById('timeFontSlider').value);
+      updateContentFontSize(document.getElementById('contentFontSlider').value);
+      updateTimeColWidth(document.getElementById('timeColWidthSlider').value);
+      updateTableWidth(document.getElementById('tableWidthSlider').value);
+    };
+  </script>
 </body>
 </html>
